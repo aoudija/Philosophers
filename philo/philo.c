@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:09 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/07 19:47:18 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/08 11:43:18 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	*routine(void *sdata)
 	if (data->fork[pos - 1] && data->fork[pos]
 		&& !data->has_eaten[pos - 1] && data->is_alive[pos - 1])
 	{
-		printf("\x1B[32m %f Philosopher %d has taken a fork\033[0m\n", (float)start.tv_usec / 1000000, pos);
-		printf("\x1B[32m %f Philosopher %d is eating\033[0m\n", (float)start.tv_usec / 1000000, pos);
+		printf("\x1B[32m %d Philosopher %d has taken a fork\033[0m\n", start.tv_usec, pos);
+		printf("\x1B[32m %d Philosopher %d is eating\033[0m\n", start.tv_usec, pos);
 		data->fork[pos] = 0;
 		data->has_eaten[pos - 1] = 1;
 		usleep(data->t_eat);
@@ -38,14 +38,14 @@ void	*routine(void *sdata)
 	//sleep
 	if(data->is_alive[pos - 1] && !data->has_slept[pos - 1])
 	{
-		printf("\x1B[34m %f Philosopher %d is sleeping\033[0m\n", (float)start.tv_usec / 1000000, pos);
+		printf("\x1B[34m %d Philosopher %d is sleeping\033[0m\n", start.tv_usec, pos);
 		data->has_slept[pos - 1] = 1;
 		usleep(data->t_sleep);
 	}
 	//think
 	if(data->is_alive[pos - 1] && !data->has_thought[pos - 1])
 	{
-		printf("\x1B[37m %f Philosopher %d is thinking\033[0m\n", (float)start.tv_usec / 1000000, pos);
+		printf("\x1B[37m %d Philosopher %d is thinking\033[0m\n", start.tv_usec, pos);
 		data->has_thought[pos - 1] = 1;
 	}
 	gettimeofday(&end, NULL);
@@ -54,7 +54,7 @@ void	*routine(void *sdata)
 	if (tt >= data->t_die && !data->has_eaten[pos - 1])
 	{
 		data->is_alive[pos - 1] = 0;
-		printf("\x1B[31m %f Philosopher %d died\033[0m\n", (float)start.tv_usec / 1000000,pos);
+		printf("\x1B[31m %d Philosopher %d died\033[0m\n", start.tv_usec,pos);
 	}
 	pthread_mutex_unlock(&data->mutex);
 	if (pos == data->nph)
