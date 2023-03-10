@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:20 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/06 20:41:23 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/10 08:43:16 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_data
 	pthread_mutex_t	mutex;
 	int				nph;
 	int				*fork;
+	int				*table;
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
