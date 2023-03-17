@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:17:19 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/04 11:17:59 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/17 08:36:17 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,43 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (nb * s);
+}
+
+long	get_time_ms()
+{
+	long			i;
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	i = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (i);
+}
+
+int	*fill_tab(int nph, int n)
+{
+	int	*tab;
+	int	i;
+
+	tab = malloc(sizeof(int) * nph);
+	i = -1;
+	while (++i < nph)
+		tab[i] = n;
+	return (tab);
+}
+
+void uusleepp(int time)
+{
+	struct timeval	tv;
+	long 		tt;
+	long 		diff;
+
+	gettimeofday(&tv, NULL);
+	tt = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	diff = tt + time;
+	while (tt != diff)
+	{
+		usleep(1);
+		gettimeofday(&tv, NULL);
+		tt = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:20 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/10 08:43:16 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/16 20:00:27 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@
 int ft_atoi(const char *str);
 typedef struct s_data
 {
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	*mutex;
 	int				nph;
-	int				*fork;
-	int				*table;
+	long			*t_ate;
+	long			t0;
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
 	int				must_eat;
-	int				*has_eaten;
 	int				*is_alive;
-	int				*has_slept;
-	int				*has_thought;
+	int				ac;
+	int				times_e;
 }	t_data;
 
 

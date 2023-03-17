@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 11:10:58 by aoudija           #+#    #+#              #
-#    Updated: 2023/03/04 11:28:01 by aoudija          ###   ########.fr        #
+#    Updated: 2023/03/13 15:05:54 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 DEPS = philo.h
 
