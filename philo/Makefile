@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 11:10:58 by aoudija           #+#    #+#              #
-#    Updated: 2023/03/13 15:05:54 by aoudija          ###   ########.fr        #
+#    Updated: 2023/03/17 18:32:49 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 DEPS = philo.h
 
-FILES = philo.c philo_utils.c
+FILES = philo.c philo_utils.c routines.c
 
 # FILES_B = 
 
