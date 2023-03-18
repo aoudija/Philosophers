@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:17:19 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/17 09:05:24 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/18 11:46:35 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_atoi(const char *str)
 	return (nb * s);
 }
 
-long	get_time_ms()
+long	get_time_ms(void)
 {
 	long			i;
 	struct timeval	tv;
@@ -48,11 +48,11 @@ long	get_time_ms()
 	return (i);
 }
 
-void uusleepp(int time)
+void	uusleepp(int time)
 {
 	struct timeval	tv;
-	long 		tt;
-	long 		diff;
+	long			tt;
+	long			diff;
 
 	gettimeofday(&tv, NULL);
 	tt = tv.tv_sec * 1000 + tv.tv_usec / 1000;

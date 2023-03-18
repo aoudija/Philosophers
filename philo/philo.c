@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:09 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/17 20:11:41 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/18 11:50:01 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 
 void	norm1(t_data data)
 {
-	int	i;
+	int		i;
+	long	time;
 
 	i = 0;
 	while (data.ate[i] < data.times_e)
 	{
 		if ((get_time_ms() - data.t_ate[i]) >= data.t_die)
 		{
-			printf("\x1B[31m %ld Philosopher %d died\033[0m\n", get_time_ms() - data.t0, i + 1);
+			time = get_time_ms() - data.t0;
+			printf("\x1B[31m %ld Philosopher %d died\033[0m\n", time, i + 1);
 			return ;
 		}
-		if ((i  + 1) == data.nph)
+		if ((i + 1) == data.nph)
 			i = 0;
 	}
 }
@@ -36,7 +38,7 @@ void	philo_n(t_data data)
 
 	th = malloc(data.nph * sizeof(pthread_t));
 	i = -1;
-	while(++i < data.nph)
+	while (++i < data.nph)
 		pthread_mutex_init(&data.fork[i], NULL);
 	i = -1;
 	while (++i < data.nph)
@@ -46,7 +48,7 @@ void	philo_n(t_data data)
 	while (++i < data.nph)
 		pthread_join(th[i], NULL);
 	i = -1;
-	while(++i < data.nph)
+	while (++i < data.nph)
 		pthread_mutex_destroy(&data.fork[i]);
 }
 

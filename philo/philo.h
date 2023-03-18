@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:20 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/17 12:18:00 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/18 11:45:49 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/time.h>
 # include <string.h>
 
-int ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 typedef struct s_data
 {
 	pthread_mutex_t	*fork;
@@ -35,10 +35,9 @@ typedef struct s_data
 	int				ac;
 	int				times_e;
 }	t_data;
-long	get_time_ms();
+long	get_time_ms(void);
 void	uusleepp(int time);
 void	*routine(void *sdata);
 void	*routine2(void *sdata);
-
 
 #endif
