@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:15:44 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/18 11:49:43 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/19 16:00:51 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,11 @@ void	*routine(void *sdata)
 	data = (t_data *)sdata;
 	if (i == 0)
 		t0 = get_time_ms();
+	pthread_mutex_lock(data->mutex);
 	i++;
 	pos = i;
 	data->t_ate[pos - 1] = t0;
+	pthread_mutex_unlock(data->mutex);
 	while (data->ate[pos - 1] < data->times_e)
 	{
 		normy1(data, pos, t0);
