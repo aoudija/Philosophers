@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:20 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/19 16:21:48 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/20 09:18:25 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ typedef struct s_data
 	int				t_sleep;
 	int				must_eat;
 	int				*ate;
-	int				ac;
 	int				times_e;
 }	t_data;
 long	get_time_ms(void);
 void	uusleepp(int time);
 void	*routine(void *sdata);
 int		all_ate(t_data data);
+int		ft_isdigit(int c);
+int		good_to_go(char **s, int ac);
 
 #endif

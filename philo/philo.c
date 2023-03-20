@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:09 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/20 08:30:18 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/20 09:18:20 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,8 @@ void	philo_n(t_data data)
 	free(th);
 }
 
-int	main(int ac, char **av)
+void	fill(t_data data, char **av)
 {
-	t_data	data;
-
-	data.ac = ac;
 	data.nph = ft_atoi(av[1]);
 	data.fork = malloc(sizeof(pthread_mutex_t) * data.nph);
 	data.mutex = malloc(sizeof(pthread_mutex_t));
@@ -83,18 +80,31 @@ int	main(int ac, char **av)
 	data.t_die = ft_atoi(av[2]);
 	data.t_eat = ft_atoi(av[3]);
 	data.t_sleep = ft_atoi(av[4]);
-	if (ac == 6)
+}
+
+int	main(int ac, char **av)
+{
+	t_data	data;
+
+	if (ac == 5 || ac == 6)
 	{
-		data.times_e = ft_atoi(av[5]);
-		memset(data.ate, 0, data.nph * sizeof(int));
-		philo_n(data);
+		if (!good_to_go(av, ac));
+			return (0);
+		fill (data, av);
+		if (ac == 6)
+		{
+			data.times_e = ft_atoi(av[5]);
+			memset(data.ate, 0, data.nph * sizeof(int));
+			philo_n(data);
+		}
+		else if (ac == 5)
+		{
+			data.times_e = 1;
+			memset(data.ate, -1, data.nph * sizeof(int));
+			philo_n(data);
+		}
+		return (free(data.fork), free(data.ate)
+			, free(data.t_ate), free(data.mutex), 0);
 	}
-	else
-	{
-		data.times_e = 1;
-		memset(data.ate, -1, data.nph * sizeof(int));
-		philo_n(data);
-	}
-	return (free(data.fork), free(data.ate)
-		, free(data.t_ate), free(data.mutex), 0);
+	return (0);
 }
