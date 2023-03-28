@@ -1,45 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_b.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/03 11:00:20 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/20 21:08:52 by aoudija          ###   ########.fr       */
+/*   Created: 2023/03/18 12:39:12 by aoudija           #+#    #+#             */
+/*   Updated: 2023/03/27 01:00:42 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_B_H
+# define PHILO_B_H
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 # include <string.h>
-# include <limits.h>
+# include <semaphore.h>
 
 int		ft_atoi(const char *str);
 typedef struct s_data
 {
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	*mutex;
-	int				nph;
-	long			*t_ate;
-	long			t0;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
-	int				*ate;
-	int				times_e;
+	sem_t	**fork;
+	int		*pid;
+	int		nph;
+	int		t_die;
+	int		t_eat;
+	int		t_sleep;
+	long	*t_ate;
+	long	t0;
+	int		*ate;
+	int		times_e;
 }	t_data;
-long	get_time_ms(void);
-void	uusleepp(int time);
-void	*routine(void *sdata);
+void	ph_b(t_data data, int i);
 int		all_ate(t_data data);
 int		ft_isdigit(int c);
 int		good_to_go(char **s, int ac);
+long	get_time_ms(void);
+void	uusleepp(int time);
+char	*ft_itoa(int n);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif

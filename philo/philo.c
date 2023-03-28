@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:09 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/20 10:55:13 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/28 02:12:44 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	philo_n(t_data data)
 		pthread_mutex_init(&data.fork[i], NULL);
 	i = -1;
 	while (++i < data.nph)
+	{
+		usleep(1);
 		pthread_create(&th[i], NULL, routine, (void *)&data);
+	}
 	data.t0 = get_time_ms();
 	uusleepp(300);
 	norm1(data);

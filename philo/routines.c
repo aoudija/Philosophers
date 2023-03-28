@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:15:44 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/19 16:00:51 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/03/28 02:07:34 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	normy1(t_data *data, int pos, long t0)
 	if (pos != data->nph)
 	{
 		pthread_mutex_lock(&data->fork[pos - 1]);
+		time = get_time_ms() - t0;
+		printf("\x1B[32m %ld Philosopher %d has taken a fork\033[0m\n", time, pos);
 		pthread_mutex_lock(&data->fork[pos]);
 		data->t_ate[pos - 1] = get_time_ms();
 		if (data->ate[pos - 1] == -1)
@@ -41,6 +43,8 @@ void	normy2(t_data *data, int pos, long t0)
 	if (pos == data->nph)
 	{
 		pthread_mutex_lock(&data->fork[pos - 1]);
+		time = get_time_ms() - t0;
+		printf("\x1B[32m %ld Philosopher %d has taken a fork\033[0m\n", time, pos);
 		pthread_mutex_lock(&data->fork[0]);
 		data->t_ate[pos - 1] = get_time_ms();
 		if (data->ate[pos - 1] == -1)
