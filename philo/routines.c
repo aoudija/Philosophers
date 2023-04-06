@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:15:44 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/28 02:07:34 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/01 03:42:22 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	*routine(void *sdata)
 		time = get_time_ms() - t0;
 		printf("\x1B[34m %ld Philosopher %d is sleeping\033[0m\n", time, pos);
 		uusleepp(data->t_sleep);
+		time = get_time_ms() - t0;
 		printf("\x1B[37m %ld Philosopher %d is thinking\033[0m\n", time, pos);
 	}
 	return (NULL);

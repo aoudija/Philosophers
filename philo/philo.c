@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:09 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/28 02:12:44 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/04 00:44:46 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	all_ate(t_data data)
 	return (0);
 }
 
-void	norm1(t_data data)
+void	death(t_data data)
 {
 	int		i;
 	long	time;
@@ -65,7 +65,8 @@ void	philo_n(t_data data)
 	}
 	data.t0 = get_time_ms();
 	uusleepp(300);
-	norm1(data);
+	death(data);
+	uusleepp(100);
 	i = -1;
 	while (++i < data.nph)
 		pthread_mutex_destroy(&data.fork[i]);

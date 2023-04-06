@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:39:12 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/27 01:00:42 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/03 03:35:55 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,23 @@
 # include <fcntl.h>
 # include <string.h>
 # include <semaphore.h>
+# include <signal.h>
 
 int		ft_atoi(const char *str);
 typedef struct s_data
 {
-	sem_t	**fork;
+	sem_t	*fork;
+	sem_t	*two;
 	int		*pid;
 	int		nph;
 	int		t_die;
 	int		t_eat;
 	int		t_sleep;
-	long	*t_ate;
+	long	t_ate;
 	long	t0;
-	int		*ate;
+	int		ate;
 	int		times_e;
+	int		i;
 }	t_data;
 void	ph_b(t_data data, int i);
 int		all_ate(t_data data);
