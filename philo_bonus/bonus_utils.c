@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus_utils_1.c                                    :+:      :+:    :+:   */
+/*   bonus_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:17:19 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/05 03:24:37 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/06 04:23:27 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,21 @@ void	uusleepp(int time)
 		usleep(1);
 		gettimeofday(&tv, NULL);
 		tt = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	}
+}
+
+void	death(t_data *data)
+{
+	long	time;
+
+	while (1)
+	{
+		usleep(200);
+		if (get_time_ms() - data->t_ate >= data->t_die)
+		{
+			time = get_time_ms() - data->t0;
+			printf("\x1B[31m %ld %d died\033[0m\n", time, data->i + 1);
+			exit (0);
+		}
 	}
 }

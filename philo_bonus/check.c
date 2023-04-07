@@ -6,11 +6,11 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 09:06:01 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/07 00:05:38 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/07 00:40:41 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_b.h"
 
 int	ft_strlen(char *s)
 {

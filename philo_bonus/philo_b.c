@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:55:36 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/06 02:42:21 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/07 00:52:37 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	*routine(void *sdata)
 void	do_this(t_data data, int ac, char **av)
 {
 	int			i;
-	long		time;
 	pthread_t	th;
 
 	i = -1;
@@ -82,23 +81,9 @@ void	do_this(t_data data, int ac, char **av)
 			data.i = i;
 			data.t_ate = get_time_ms();
 			pthread_create(&th, NULL, routine, (void *)&data);
-			while (1)
-			{
-				usleep(200);
-				if (get_time_ms() - data.t_ate >= data.t_die)
-				{
-					time = get_time_ms() - data.t0;
-					printf("\x1B[31m %ld %d died\033[0m\n", time, data.i + 1);
-					exit (0);
-				}
-			}
+			death(&data);
 		}
 	}
-}
-
-void leaks()
-{
-	system("leaks philo_bonus");
 }
 
 int	main(int ac, char **av)
@@ -121,7 +106,6 @@ int	main(int ac, char **av)
 	while (++i < data.nph)
 		kill(data.pid[i], SIGTERM);
 	free(data.pid);
-	// atexit(leaks);
 	sem_close(data.fork);
 	sem_unlink("/mysem");
 }
