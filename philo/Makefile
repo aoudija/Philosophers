@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 11:10:58 by aoudija           #+#    #+#              #
-#    Updated: 2023/03/20 10:36:49 by aoudija          ###   ########.fr        #
+#    Updated: 2023/04/07 01:49:51 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 DEPS = philo.h
 
-FILES = philo.c philo_utils.c routines.c check.c
+FILES = philo.c philo_utils.c routines.c check.c ft_print.c
 
 OBG = $(FILES:.c=.o)
 

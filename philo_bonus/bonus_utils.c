@@ -6,17 +6,17 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:17:19 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/06 04:23:27 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/07 20:10:11 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_b.h"
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	s;
-	int	i;
-	int	nb;
+	int		s;
+	int		i;
+	long	nb;
 
 	s = 1;
 	i = 0;
@@ -74,6 +74,7 @@ void	death(t_data *data)
 		usleep(200);
 		if (get_time_ms() - data->t_ate >= data->t_die)
 		{
+			sem_wait(data->write);
 			time = get_time_ms() - data->t0;
 			printf("\x1B[31m %ld %d died\033[0m\n", time, data->i + 1);
 			exit (0);

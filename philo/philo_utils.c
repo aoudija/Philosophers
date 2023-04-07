@@ -6,17 +6,17 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:17:19 by aoudija           #+#    #+#             */
-/*   Updated: 2023/03/20 09:07:53 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/07 04:23:23 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	int	s;
 	int	i;
-	int	nb;
+	long	nb;
 
 	s = 1;
 	i = 0;

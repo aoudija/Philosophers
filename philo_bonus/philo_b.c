@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:55:36 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/07 00:52:37 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/07 20:08:51 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	eat(t_data *data)
 
 	sem_wait(data->fork);
 	time = get_time_ms() - data->t0;
-	printf("\x1B[32m %ld %d has taken a fork\033[0m\n", time, data->i + 1);
+	ft_print(time, 'f', data->i + 1, data);
 	sem_wait(data->fork);
 	data->t_ate = get_time_ms();
 	if (data->ate == -1)
@@ -40,8 +40,8 @@ void	eat(t_data *data)
 	else
 		data->ate += 1;
 	time = get_time_ms() - data->t0;
-	printf("\x1B[32m %ld %d has taken a fork\033[0m\n", time, data->i + 1);
-	printf("\x1B[32m %ld %d is eating\033[0m\n", time, data->i + 1);
+	ft_print(time, 'f', data->i + 1, data);
+	ft_print(time, 'e', data->i + 1, data);
 	uusleepp(data->t_eat);
 	sem_post(data->fork);
 	sem_post(data->fork);
@@ -57,10 +57,10 @@ void	*routine(void *sdata)
 	{
 		eat(data);
 		time = get_time_ms() - data->t0;
-		printf("\x1B[34m %ld %d is sleeping\033[0m\n", time, data->i + 1);
+		ft_print(time, 's', data->i + 1, data);
 		uusleepp(data->t_sleep);
 		time = get_time_ms() - data->t0;
-		printf("\x1B[37m %ld %d is thinking\033[0m\n", time, data->i + 1);
+		ft_print(time, 't', data->i + 1, data);
 	}
 	exit (0);
 }
@@ -98,7 +98,9 @@ int	main(int ac, char **av)
 	data.t_die = ft_atoi(av[2]);
 	data.t_eat = ft_atoi(av[3]);
 	data.t_sleep = ft_atoi(av[4]);
+	sem_unlink("/write");
 	sem_unlink("/mysem");
+	data.write = sem_open("/write", O_CREAT | O_EXCL, 0666, 1);
 	data.fork = sem_open("/mysem", O_CREAT | O_EXCL, 0666, data.nph);
 	do_this(data, ac, av);
 	waitpid(-1, NULL, 0);
@@ -107,5 +109,7 @@ int	main(int ac, char **av)
 		kill(data.pid[i], SIGTERM);
 	free(data.pid);
 	sem_close(data.fork);
+	sem_close(data.write);
 	sem_unlink("/mysem");
+	sem_unlink("/write");
 }

@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:09 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/07 00:05:47 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/07 04:38:41 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ void	death(t_data data)
 	long	time;
 
 	i = 0;
-	while (all_ate(data))
+	while (1)
 	{
 		while (i < data.nph)
 		{
 			if (get_time_ms() - data.t_ate[i] >= data.t_die)
 			{
+				data.write[0] = 0;
 				time = get_time_ms() - data.t0;
 				printf("\x1B[31m %ld Philosopher %d died\033[0m\n", time, i + 1);
 				return ;
@@ -60,16 +61,15 @@ void	philo_n(t_data data)
 	i = -1;
 	while (++i < data.nph)
 	{
-		usleep(1);
+		usleep(100);
 		pthread_create(&th[i], NULL, routine, (void *)&data);
 	}
 	data.t0 = get_time_ms();
-	uusleepp(300);
 	death(data);
-	uusleepp(100);
 	i = -1;
 	while (++i < data.nph)
 		pthread_mutex_destroy(&data.fork[i]);
+	pthread_mutex_destroy(data.mutex);
 	free(th);
 }
 
@@ -99,15 +99,17 @@ int	main(int ac, char **av)
 			return (0);
 		data.nph = ft_atoi(av[1]);
 		data.fork = malloc(sizeof(pthread_mutex_t) * data.nph);
-		data.mutex = malloc(sizeof(pthread_mutex_t));
+		data.mutex = malloc(sizeof(pthread_mutex_t *));
+		data.write = malloc (sizeof(int *));
 		data.t_ate = malloc(sizeof(long) * data.nph);
 		data.ate = malloc(sizeof(int) * data.nph);
 		data.t_die = ft_atoi(av[2]);
 		data.t_eat = ft_atoi(av[3]);
 		data.t_sleep = ft_atoi(av[4]);
+		data.write[0] = 1;
 		amin(data, av, ac);
 		return (free(data.fork), free(data.ate)
-			, free(data.t_ate), free(data.mutex), 0);
+			, free(data.t_ate), free(data.write), free(data.mutex), 0);
 	}
 	return (0);
 }
