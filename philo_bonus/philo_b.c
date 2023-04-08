@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:55:36 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/07 20:08:51 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/08 00:38:13 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ int	main(int ac, char **av)
 	data.t_sleep = ft_atoi(av[4]);
 	sem_unlink("/write");
 	sem_unlink("/mysem");
-	data.write = sem_open("/write", O_CREAT | O_EXCL, 0666, 1);
-	data.fork = sem_open("/mysem", O_CREAT | O_EXCL, 0666, data.nph);
+	data.write = sem_open("/write", O_CREAT, 0666, 1);
+	data.fork = sem_open("/mysem", O_CREAT, 0666, data.nph);
 	do_this(data, ac, av);
 	waitpid(-1, NULL, 0);
 	i = -1;

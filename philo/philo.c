@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:09 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/07 04:38:41 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/08 02:41:40 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ void	death(t_data data)
 	long	time;
 
 	i = 0;
-	while (1)
+	while (all_ate(data))
 	{
 		while (i < data.nph)
 		{
 			if (get_time_ms() - data.t_ate[i] >= data.t_die)
 			{
 				data.write[0] = 0;
+				usleep(10);
 				time = get_time_ms() - data.t0;
 				printf("\x1B[31m %ld Philosopher %d died\033[0m\n", time, i + 1);
 				return ;
@@ -89,8 +90,14 @@ void	amin(t_data data, char **av, int ac)
 	}
 }
 
+void	leaks()
+{
+	system("leaks philo");
+}
+
 int	main(int ac, char **av)
 {
+	// atexit(leaks);
 	t_data	data;
 
 	if (ac == 5 || ac == 6)
