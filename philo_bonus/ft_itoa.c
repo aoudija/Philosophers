@@ -1,48 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 09:06:01 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/11 01:30:38 by aoudija          ###   ########.fr       */
+/*   Created: 2022/10/21 18:02:03 by aoudija           #+#    #+#             */
+/*   Updated: 2023/04/11 01:28:18 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_b.h"
 
-int	ft_strlenn(char *s)
+int	ct(long n)
 {
 	int	i;
 
-	i = -1;
-	while (s[++i])
-		;
+	i = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+	{
+		n *= -1;
+		i++;
+	}
+	while (n > 0)
+	{
+		n /= 10;
+		i++;
+	}
 	return (i);
 }
 
-int	ft_isdigit(int c)
+char	*ft_itoa(int n)
 {
-	if (c <= 57 && c >= 48)
-		return (1);
-	return (0);
-}
+	char	*str;
+	int		i;
+	long	nb;
 
-int	good_to_go(char **s, int ac)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (++i < ac)
+	nb = (long)n;
+	i = ct(nb);
+	str = malloc(i + 1);
+	if (!str)
+		return (NULL);
+	if (nb == 0)
 	{
-		j = -1;
-		while (++j < ft_strlenn(s[i]))
-		{
-			if (!ft_isdigit(s[i][j]))
-				return (0);
-		}
+		str[0] = '0';
 	}
-	return (1);
+	if (nb < 0)
+	{
+		str[0] = '-';
+		nb = nb * -1;
+	}
+	str[i--] = 0;
+	while (nb > 0)
+	{
+		str[i--] = nb % 10 + '0';
+		nb = nb / 10;
+	}
+	return (str);
 }

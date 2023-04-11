@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 01:41:43 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/08 00:34:18 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/10 05:50:29 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ void	ft_print(long time, char c, int pos, t_data *data)
 		printf("\x1B[34m %ld %d is sleeping\033[0m\n", time, pos);
 	else if (c == 't')
 		printf("\x1B[37m %ld %d is thinking\033[0m\n", time, pos);
+	else if (c == 'd')
+		printf("\x1B[31m %ld %d died \033[0m\n", time, pos);
 	sem_post(data->write);
 }

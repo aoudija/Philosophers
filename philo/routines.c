@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:15:44 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/07 03:51:54 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/11 21:56:00 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@ void	normy1(t_data *data, int pos, long t0)
 		time = get_time_ms() - t0;
 		ft_print(time, 'f', pos, data);
 		pthread_mutex_lock(&data->fork[pos]);
+		pthread_mutex_unlock(&data->mutexes[1]);
 		data->t_ate[pos - 1] = get_time_ms();
+		pthread_mutex_unlock(&data->mutexes[1]);
+		pthread_mutex_lock(&data->mutexes[2]);
 		if (data->ate[pos - 1] == -1)
 			;
 		else
 			data->ate[pos - 1] += 1;
+		pthread_mutex_unlock(&data->mutexes[2]);
 		time = get_time_ms() - t0;
 		ft_print(time, 'f', pos, data);
 		ft_print(time, 'e', pos, data);
@@ -46,11 +50,15 @@ void	normy2(t_data *data, int pos, long t0)
 		time = get_time_ms() - t0;
 		ft_print(time, 'f', pos, data);
 		pthread_mutex_lock(&data->fork[0]);
+		pthread_mutex_lock(&data->mutexes[1]);
 		data->t_ate[pos - 1] = get_time_ms();
+		pthread_mutex_unlock(&data->mutexes[1]);
+		pthread_mutex_lock(&data->mutexes[2]);
 		if (data->ate[pos - 1] == -1)
 			;
 		else
 			data->ate[pos - 1] += 1;
+		pthread_mutex_unlock(&data->mutexes[2]);
 		time = get_time_ms() - t0;
 		ft_print(time, 'f', pos, data);
 		ft_print(time, 'e', pos, data);
@@ -60,32 +68,43 @@ void	normy2(t_data *data, int pos, long t0)
 	}
 }
 
+void	normyyy(int pos, t_data *data)
+{
+	long	time;
+
+	normy1(data, pos, data->t0);
+	normy2(data, pos, data->t0);
+	time = get_time_ms() - data->t0;
+	ft_print(time, 's', pos, data);
+	uusleepp(data->t_sleep);
+	time = get_time_ms() - data->t0;
+	ft_print(time, 't', pos, data);
+}
+
 void	*routine(void *sdata)
 {
 	t_data			*data;
-	static long		t0;
 	static int		i;
 	int				pos;
-	long			time;
+	int				temp;
 
 	data = (t_data *)sdata;
-	if (i == 0)
-		t0 = get_time_ms();
-	pthread_mutex_lock(data->mutex);
+	pthread_mutex_lock(&data->mutexes[0]);
 	i++;
 	pos = i;
-	data->t_ate[i] = get_time_ms();
-	data->t_ate[pos - 1] = t0;
-	pthread_mutex_unlock(data->mutex);
-	while (data->ate[pos - 1] < data->times_e)
+	pthread_mutex_unlock(&data->mutexes[0]);
+	pthread_mutex_lock(&data->mutexes[1]);
+	data->t_ate[pos - 1] = data->t0;
+	pthread_mutex_unlock(&data->mutexes[1]);
+	pthread_mutex_lock(&data->mutexes[2]);
+	temp = data->ate[pos - 1];
+	pthread_mutex_unlock(&data->mutexes[2]);
+	while (temp < data->times_e)
 	{
-		normy1(data, pos, t0);
-		normy2(data, pos, t0);
-		time = get_time_ms() - t0;
-		ft_print(time, 's', pos, data);
-		uusleepp(data->t_sleep);
-		time = get_time_ms() - t0;
-		ft_print(time, 't', pos, data);
+		normyyy(pos, data);
+		pthread_mutex_lock(&data->mutexes[2]);
+		temp = data->ate[pos - 1];
+		pthread_mutex_unlock(&data->mutexes[2]);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:17:19 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/07 04:23:23 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/10 05:00:07 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 long	ft_atoi(const char *str)
 {
-	int	s;
-	int	i;
+	int		s;
+	int		i;
 	long	nb;
 
 	s = 1;
@@ -59,7 +59,7 @@ void	uusleepp(int time)
 	diff = tt + time;
 	while (tt != diff)
 	{
-		usleep(1);
+		usleep(100);
 		gettimeofday(&tv, NULL);
 		tt = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	}

@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:39:12 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/07 08:02:16 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/11 03:55:28 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_data
 {
 	sem_t	*fork;
 	sem_t	*write;
+	sem_t	*sem_t_ate;
+	sem_t	*sem_ate;
 	int		*pid;
 	int		nph;
 	long	t_die;
@@ -46,7 +48,9 @@ int		good_to_go(char **s, int ac);
 long	get_time_ms(void);
 void	uusleepp(int time);
 void	death(t_data *data);
-int		good_to_go(char **s, int ac);
 void	ft_print(long time, char c, int pos, t_data *data);
+char	*ft_itoa(int n);
+char	*ft_strjoin(char const *s1, char const *s2);
+void	set_child_sems(t_data *data, int i);
 
 #endif

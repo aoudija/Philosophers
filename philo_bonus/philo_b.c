@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:55:36 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/08 00:38:13 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/11 21:41:57 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,15 @@ void	eat(t_data *data)
 	time = get_time_ms() - data->t0;
 	ft_print(time, 'f', data->i + 1, data);
 	sem_wait(data->fork);
+	sem_wait(data->sem_t_ate);
 	data->t_ate = get_time_ms();
+	sem_post(data->sem_t_ate);
+	sem_wait(data->sem_ate);
 	if (data->ate == -1)
 		;
 	else
 		data->ate += 1;
+	sem_post(data->sem_ate);
 	time = get_time_ms() - data->t0;
 	ft_print(time, 'f', data->i + 1, data);
 	ft_print(time, 'e', data->i + 1, data);
@@ -51,9 +55,13 @@ void	*routine(void *sdata)
 {
 	t_data	*data;
 	long	time;
+	int		temp;
 
 	data = (t_data *)sdata;
-	while (data->ate < data->times_e)
+	sem_wait(data->sem_ate);
+	temp = data->ate;
+	sem_post(data->sem_ate);
+	while (temp < data->times_e)
 	{
 		eat(data);
 		time = get_time_ms() - data->t0;
@@ -61,7 +69,14 @@ void	*routine(void *sdata)
 		uusleepp(data->t_sleep);
 		time = get_time_ms() - data->t0;
 		ft_print(time, 't', data->i + 1, data);
+		sem_wait(data->sem_ate);
+		temp = data->ate;
+		sem_post(data->sem_ate);
 	}
+	sem_close(data->sem_ate);
+	sem_close(data->sem_t_ate);
+	sem_unlink(ft_strjoin("/t_ate", ft_itoa(data->i)));
+	sem_unlink(ft_strjoin("/ate", ft_itoa(data->i)));
 	exit (0);
 }
 
@@ -76,6 +91,7 @@ void	do_this(t_data data, int ac, char **av)
 		data.pid[i] = fork();
 		if (!data.pid[i])
 		{
+			set_child_sems(&data, i);
 			amin(&data, av, ac);
 			data.t0 = get_time_ms();
 			data.i = i;
@@ -98,8 +114,8 @@ int	main(int ac, char **av)
 	data.t_die = ft_atoi(av[2]);
 	data.t_eat = ft_atoi(av[3]);
 	data.t_sleep = ft_atoi(av[4]);
-	sem_unlink("/write");
 	sem_unlink("/mysem");
+	sem_unlink("/write");
 	data.write = sem_open("/write", O_CREAT, 0666, 1);
 	data.fork = sem_open("/mysem", O_CREAT, 0666, data.nph);
 	do_this(data, ac, av);

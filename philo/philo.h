@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:00:20 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/07 04:24:12 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/09 05:48:47 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ long	ft_atoi(const char *str);
 typedef struct s_data
 {
 	pthread_mutex_t	*fork;
-	pthread_mutex_t	*mutex;
-	int				*write;
+	pthread_mutex_t	*mutexes;
 	int				nph;
 	long			*t_ate;
 	long			t0;
