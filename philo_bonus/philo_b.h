@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:39:12 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/11 03:55:28 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/17 20:13:23 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void	ft_print(long time, char c, int pos, t_data *data);
 char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	set_child_sems(t_data *data, int i);
+void	normy_main(t_data *data);
 
 #endif

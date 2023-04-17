@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 09:06:01 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/11 01:30:38 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/17 20:12:05 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,12 @@ int	good_to_go(char **s, int ac)
 		}
 	}
 	return (1);
+}
+
+void	normy_main(t_data *data)
+{
+	sem_close(data->fork);
+	sem_close(data->write);
+	sem_unlink("/mysem");
+	sem_unlink("/write");
 }

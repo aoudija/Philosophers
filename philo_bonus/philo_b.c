@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:55:36 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/11 21:41:57 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/17 20:13:43 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,25 +107,26 @@ int	main(int ac, char **av)
 	t_data		data;
 	int			i;
 
-	if (ac != 5 && ac != 6)
-		return (0);
-	data.nph = ft_atoi(av[1]);
-	data.pid = malloc(sizeof(int) * data.nph);
-	data.t_die = ft_atoi(av[2]);
-	data.t_eat = ft_atoi(av[3]);
-	data.t_sleep = ft_atoi(av[4]);
-	sem_unlink("/mysem");
-	sem_unlink("/write");
-	data.write = sem_open("/write", O_CREAT, 0666, 1);
-	data.fork = sem_open("/mysem", O_CREAT, 0666, data.nph);
-	do_this(data, ac, av);
-	waitpid(-1, NULL, 0);
-	i = -1;
-	while (++i < data.nph)
-		kill(data.pid[i], SIGTERM);
-	free(data.pid);
-	sem_close(data.fork);
-	sem_close(data.write);
-	sem_unlink("/mysem");
-	sem_unlink("/write");
+	if (ac != 5 || ac != 6)
+	{
+		if (!good_to_go(av, ac))
+			return (0);
+		data.nph = ft_atoi(av[1]);
+		data.pid = malloc(sizeof(int) * data.nph);
+		data.t_die = ft_atoi(av[2]);
+		data.t_eat = ft_atoi(av[3]);
+		data.t_sleep = ft_atoi(av[4]);
+		sem_unlink("/mysem");
+		sem_unlink("/write");
+		data.write = sem_open("/write", O_CREAT, 0666, 1);
+		data.fork = sem_open("/mysem", O_CREAT, 0666, data.nph);
+		do_this(data, ac, av);
+		waitpid(-1, NULL, 0);
+		i = -1;
+		while (++i < data.nph)
+			kill(data.pid[i], SIGTERM);
+		free(data.pid);
+		normy_main(&data);
+	}
+	return (0);
 }
